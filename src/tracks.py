@@ -329,6 +329,7 @@ TRACKS_META = {
     },
     "xp_unlock":    [0,  20, 100, 800, 2000, 6000, 10000],
     "xp_use":       [1,  2,  4,   8,   16,   32,   64],
-    "max_holdable": [20, 15, 15,  10,  7,    3,    1]
+    "max_holdable": [20, 15, 15,  10,  7,    3,    1],
+    "color":        ["purple", "khaki3", "green", "slate_blue1", "orange1", "plum1", "dark_slate_gray1"]
 }
 

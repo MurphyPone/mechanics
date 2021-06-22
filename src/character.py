@@ -70,15 +70,15 @@ class Character:
             return False 
 
     def __repr__(self):
-        res = f"{self.name}\t{self.current_hp}/{self.max_hp}\n\n"
-        res += "XP\t\tTrack\t\tunlocks\n"
-        for track in TRACKS.keys():
+        res = f"{self.name}\t{self.current_hp}/{self.max_hp} :heart:\n\n"
+        res += "XP\t\tAbility Track\tProgress\n"
+        for i, track in enumerate(TRACKS.keys()):
             if track in self.tracks:
                 lvl = self.get_track_max_level(track)
                 # instead of squares, we could use emojis and blank squares?
                 max_width = max([len(key) for key in TRACKS.keys()])
                 just_track = f"{track}:".ljust(max_width)
-                res += f"({millify(self.track_xp[track])}/{millify(TRACKS_META['xp_unlock'][min(lvl+1, 6)])})\t{just_track}\t" + ("■ " * lvl) + ("□ " * (7 - lvl)) + "\n"
+                res += f"({millify(self.track_xp[track])}/{millify(TRACKS_META['xp_unlock'][min(lvl+1, 6)])})\t[{TRACKS_META['color'][i]}]{just_track}[/{TRACKS_META['color'][i]}]\t" + ("■ " * lvl) + ("□ " * (7 - lvl)) + "\n"
 
         return res + "\n"
 

@@ -8,7 +8,7 @@ class Player():
             self.party = [Character(dic=v) for v in dic["party"]]
             self.coins = dic["coins"]
         else: 
-            self.party = []
+            self.party = [get_random_character()]
             self.coins = 10
 
     def add_party_member(self, char):
@@ -27,11 +27,11 @@ class Player():
 
 
 
-    def __repr__(self, index=None):
+    def __rich__(self, index=None):
         if index and index >= 0 and index < len(self.party):
             return self.party[index]
 
-        res = "Coins: {self.coins}\n"
+        res = f"Coins: {self.coins}\nParty Member(s)\n"
         for character in self.party:
             res += character.__repr__()
             res += "-" * 46  + "\n"

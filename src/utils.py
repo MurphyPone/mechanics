@@ -114,14 +114,8 @@ def std_footer(embed):
         inline=False
     )
 
-COMMANDS = [
-    {
-        "name": "`help`",
-        "description": "List of commands"
-    },
-    {
-        "name": "`tracks`",
-        "description": "information about character ability tracks"
-    },
-        
-]
+COMMANDS = {
+    "help": "Displays a list of commands",
+    "tracks" :"Displays Information about character ability tracks",
+    "party": "Display an overview of your party",
+}
