@@ -8,7 +8,7 @@ from conf import DISCORD_KEY, FIREBASE_CONFIG, CMD_PREFIX
 from utils import std_embed, std_footer, COMMANDS, TARGET2STRING
 from player import Player
 from tracks import TRACKS, TRACKS_META
-from character import get_random_character
+from character import get_random_character, Character
 
 # initial setup
 client = commands.Bot(command_prefix=CMD_PREFIX)
@@ -32,24 +32,18 @@ async def on_ready():
 @client.command(name="generate_party", aliases=["gen_party"])
 async def generate_party(ctx):
     player = Player()
-    player.add_party_member(get_random_character())
-    player.add_party_member(get_random_character())
-    player.add_party_member(get_random_character())
-    player.add_party_member(get_random_character())
+    player.add_party_member(Character())
 
     embed = std_embed(title="Party Overview")
     for char in player.party:
         embed.add_field(name=f"{char.name}", value=f"{char.__repr__()}", inline=False)
 
     # push the party to the database
-    payload = {
-        "username": f"@{ctx.message.author.name}",  
-        "id": str(ctx.message.author.id),
-        # TODO party to payload
-        "party": [{"name": char.name, "max_hp": char.max_hp, "current_hp": char.current_hp, "tracks": char.tracks, "track_xp": char.track_xp} for char in player.party],
-        "coins": player.coins
-    }
-    db.child("users").child(payload['id']).set(payload)
+    payload = player.to_dict()
+    payload["username"] = f"@{ctx.message.author.name}"
+    key = str(ctx.message.author.id)
+
+    db.child("users").child(key).set(payload)
     print(f'[LOG] Creating user database entry for {ctx.message.author.name}')
 
     await ctx.send(embed=embed)
@@ -59,25 +53,46 @@ async def generate_party(ctx):
     embed = std_embed(title="your party")
     
     # If user in db already  
-    print(list(db.child("users").shallow().get().val()))
+    # print( str(ctx.message.author.id), list(db.child("users").shallow().get().val()))
     if str(ctx.message.author.id) in list(db.child("users").shallow().get().val()):
-        # TODO PLayer from ordered dict??
+        # recreated Player instance from ordered dict??
         player_db = db.child("users").child(str(ctx.message.author.id)).get()
-        # for char in player_db['party']:
-
-        # print(player_db.val())
+        player = Player(dic=player_db.val())
         
-        # for char in player.party:
-        #     embed.add_field(name=f"{char['name']}", value=f"char.__repr__()", inline=False)
-            # embed.add_field(name=f"{char['name']}", value=f"{char.__repr__()}", inline=False)
+        for char in player.party:
+            embed.add_field(name=f"{char.name}", value=f"{char.__repr__()}", inline=False)
         
     
     else: # prompt the user to generate a p
         embed.add_field(name=f"You need to create a party!", value=f"`{CMD_PREFIX} gen_party`", inline=False)
     await ctx.send(embed=embed)
 
+@client.command(name="inventory", aliases=["inv"])
+async def inventory(ctx, args=None): 
+    
+    if str(ctx.message.author.id) in list(db.child("users").shallow().get().val()):
+        # recreated Player instance from ordered dict??
+        player_db = db.child("users").child(str(ctx.message.author.id)).get()
+        player = Player(dic=player_db.val())
+        
+        if len(player.party) == 1:
+            embed = std_embed(title=f"{player.party[0].name}'s inventory")
+            for k,v in player.party[0].inventory.items():
+                embed.add_field(name=k, value=v, inline=False)        
+    
+    
+    else: # prompt the user to generate a p
+        embed.add_field(name=f"You need to create a party!", value=f"`{CMD_PREFIX} gen_party`", inline=False)
+    await ctx.send(embed=embed)
+
+
 
 # TODO disband party
+@client.command(name="disband_party", aliases=["dbp"])
+async def disband_party(ctx): 
+    embed = std_embed()
+    embed.add_field(name=f"disband", value=f"Are you sure you want to disband your party? This action cannot be undone.  You will lose all your party members and be given a new first level character\n`yes`, `no`", inline=False)
+    await ctx.send(embed=embed)
 
 @client.command(name="help", aliases=["h"])
 async def help(ctx, *args):

@@ -6,15 +6,22 @@ from enemy import Enemy
 from utils import millify, NAMES
 
 class Character:
-    def __init__(self):
-        self.name = random.choice(NAMES)
-        self.max_hp = 25
-        self.current_hp = self.max_hp
-        self.tracks = ["Physicality", "Precision"] # just the keys which refer to the TRACKS lookup table
-        self.track_xp = {"Physicality": 0, "Precision": 0} # I think this can be a dict?
+    def __init__(self, dic=None):
+        if dic is not None: # recreate character from dictionary
+            self.name = dic["name"]
+            self.max_hp = dic["max_hp"]
+            self.current_hp = dic["current_hp"]
+            self.tracks = [t for t in dic["tracks"]]
+            self.track_xp = {k:v for k,v in dic["track_xp"].items()}
+            self.inventory = {k:v for k,v in dic["inventory"].items()}
+        else:  # generate a blank, new character
+            self.name = random.choice(NAMES)
+            self.max_hp = 25
+            self.current_hp = self.max_hp
+            self.tracks = ["Physicality", "Precision"] # just the keys which refer to the TRACKS lookup table
+            self.track_xp = {"Physicality": 0, "Precision": 0} 
+            self.inventory = {"Physicality": [5, 0, 0 , 0, 0, 0, 0], "Precision": [5, 0, 0 , 0, 0, 0, 0]} # need to add check to make sure the gag limit not exceeded
 
-
-    # TODO refactor for uniform ordering of tracks
     def add_xp(self, track, amount):
         if track in self.tracks:
             self.track_xp[track] += int(amount)
@@ -46,6 +53,22 @@ class Character:
 
         return prop_acc + track_xp + tgt_def + bonus
 
+    # should get called by player which checks if user has enough coin
+    # todo allow the user to purchase an amount?
+    def buy_attack(self, track, level):
+        # check to make sure character has track and level unlocked
+        if track in self.tracks and level <= self.get_track_max_level(track):
+            if self.inventory[track][level] < TRACKS_META["max_holdable"][level]:
+                self.inventory[track][level-1] += 1
+                print(f"{self.name} purchased a {TRACKS[track][level-1]['name']}")    
+                return True 
+            else:
+                print(f"{self.name} is holding the maximum amount of that item")    
+
+        else:
+            print(f"{self.name} doesn't have that attack unlocked")
+            return False 
+
     def __repr__(self):
         res = f"{self.name}\t{self.current_hp}/{self.max_hp}\n\n"
         res += "XP\t\tTrack\t\tunlocks\n"
@@ -59,6 +82,16 @@ class Character:
 
         return res + "\n"
 
+    # used to send to firebase
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "max_hp": self.max_hp,
+            "current_hp": self.current_hp,
+            "tracks": [track for track in self.tracks],
+            "track_xp": {k: v for k,v in self.track_xp.items()},
+            "inventory": {k:v for k,v in self.inventory.items()}
+        }
 
 def get_random_character():
     c = Character()
@@ -66,7 +99,11 @@ def get_random_character():
         c.unlock_track(track)
         c.add_xp(track, random.randint(0, 1e4))
     return c 
-## how to represent a track
+
+# c = Character()
+# c.buy_attack("Precision", 1)
+# print(c.inventory)
+
 
 # e = Enemy(lvl=12)
 # print(e)

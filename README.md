@@ -9,6 +9,8 @@ A game(???)
     - [ ] street fight 
     - [ ] tower
     - [ ] factory
+
+    - [ ] `CMD fight tower`
 - [ ] overhaul lore 
 - [ ] add info about enemies 
 - [ ] add passive income on cd 
