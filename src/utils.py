@@ -81,6 +81,16 @@ NAMES = [
 ]
 
 
+COMMANDS = {
+    "help": "Displays a list of commands",
+    "tutorial": "Leads the player through the tutorial",
+    "tracks" :"Displays Information about character ability tracks",
+    "party": "Display an overview of your party",
+    "inventory": "displays a character's inventory"
+}
+
+SAVE_FILE = "save_file.json"
+
 ## Discord utils
 def std_embed(title=None, description=None):
     if title and description:
@@ -113,9 +123,3 @@ def std_footer(embed):
         value="don't talk about it ",
         inline=False
     )
-
-COMMANDS = {
-    "help": "Displays a list of commands",
-    "tracks" :"Displays Information about character ability tracks",
-    "party": "Display an overview of your party",
-}

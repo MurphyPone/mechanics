@@ -124,7 +124,7 @@ TRACKS = {
             "name": "$10 Bill",
             "prop_acc": 70, 
             "target": Target.ONE_E, 
-            "range": range(60, 70+1), 
+            "range": 0, 
         },
         {
            "name": "Lure Goggles",
@@ -224,7 +224,7 @@ TRACKS = {
             "name": "Wedding Cake",
             "prop_acc": 75, 
             "target": Target.ALL_E, 
-            "range": range(48, 100+1), 
+            "range": range(120, 120+1), 
         },
     ], 
     "Precision": [ # squirt
@@ -330,6 +330,14 @@ TRACKS_META = {
     "xp_unlock":    [0,  20, 100, 800, 2000, 6000, 10000],
     "xp_use":       [1,  2,  4,   8,   16,   32,   64],
     "max_holdable": [20, 15, 15,  10,  7,    3,    1],
+    # https://rich.readthedocs.io/en/stable/appendix/colors.html#appendix-colors
     "color":        ["purple", "khaki3", "green", "slate_blue1", "orange1", "plum1", "dark_slate_gray1"]
 }
 
+def get_track_color(track):
+    i = 0
+    for t in TRACKS.keys():
+        if track.lower() == t.lower():
+            return TRACKS_META["color"][i]
+        i += 1
+    return "white" 

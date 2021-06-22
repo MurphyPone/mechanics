@@ -1,6 +1,6 @@
 import random
 
-from tracks import TRACKS, TRACKS_META
+from tracks import TRACKS, TRACKS_META, get_track_color
 from tracks import *
 from enemy import Enemy
 from utils import millify, NAMES
@@ -36,7 +36,7 @@ class Character:
     # returns the level of the maximum unlocked ability in a track [1, 7]
     def get_track_max_level(self, track):
         i = 0
-        while i < 7 and self.track_xp[track] >= TRACKS_META["xp_unlock"][i]:
+        while i < 6 and self.track_xp[track] >= TRACKS_META["xp_unlock"][i+1]:
             i += 1
         return i
 
@@ -70,17 +70,30 @@ class Character:
             return False 
 
     def __repr__(self):
-        res = f"{self.name}\t{self.current_hp}/{self.max_hp} :heart:\n\n"
+        res = f"{self.name}\t{self.current_hp}/{self.max_hp} [red]:heart:[/red]\n\n"
         res += "XP\t\tAbility Track\tProgress\n"
         for i, track in enumerate(TRACKS.keys()):
             if track in self.tracks:
-                lvl = self.get_track_max_level(track)
+                lvl = self.get_track_max_level(track) + 1
                 # instead of squares, we could use emojis and blank squares?
                 max_width = max([len(key) for key in TRACKS.keys()])
                 just_track = f"{track}:".ljust(max_width)
-                res += f"({millify(self.track_xp[track])}/{millify(TRACKS_META['xp_unlock'][min(lvl+1, 6)])})\t[{TRACKS_META['color'][i]}]{just_track}[/{TRACKS_META['color'][i]}]\t" + ("■ " * lvl) + ("□ " * (7 - lvl)) + "\n"
+                color = get_track_color(track)
+                res += f"({millify(self.track_xp[track])}/{millify(TRACKS_META['xp_unlock'][min(lvl, 6)])})\t[{color}]{just_track}[/{color}]\t" + ("■ " * lvl) + ("□ " * (7 - lvl)) + "\n"
 
         return res + "\n"
+
+    def show_inventory(self):
+        res = f"{self.name}'s Inventory\n"
+        for i, track in enumerate(TRACKS.keys()):
+            if track in self.tracks:
+                max_width = max([len(key) for key in TRACKS.keys()])
+                just_track = f"{track}:".ljust(max_width)
+                color = get_track_color(track)
+                res += f"\t[{color}]{just_track}[/{color}]\t{self.inventory[track]}\n"
+
+        return res
+
 
     # used to send to firebase
     def to_dict(self):
@@ -100,9 +113,9 @@ def get_random_character():
         c.add_xp(track, random.randint(0, 1e4))
     return c 
 
-# c = Character()
+c = Character()
 # c.buy_attack("Precision", 1)
-# print(c.inventory)
+print(c.show_inventory())
 
 
 # e = Enemy(lvl=12)
