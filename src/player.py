@@ -33,12 +33,11 @@ class Player():
             return self.party[0].show_inventory()
 
     def is_alive(self):
-        all_dead = True
         for c in self.party:
             if c.is_alive():
-                all_dead = False 
+                return True
         
-        return all_dead
+        return False
 
     def __rich__(self, index=None):
         if index and index >= 0 and index < len(self.party):

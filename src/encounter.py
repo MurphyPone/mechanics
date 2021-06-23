@@ -1,5 +1,8 @@
+import random
+
 from player import Player 
 from enemy import Enemy
+
 
 # an encounter is a sub game loop ?
 # each loop there should be a chance to add another cog from the queue to the active slots if # < 4
@@ -12,32 +15,57 @@ class Encounter():
             difficulty = 2
 
         self.num_enemies = num_enemies
-        self.all_enemies = []
+        self.remaining_enemies = []
         for i in range(num_enemies+1):
             lo = 1
             hi = min(12, int(random.randint(1,6) * (difficulty)) + random.randint(0,1))
             lvl = max(lo, hi)
-            self.all_enemies.append(Enemy(lvl=lvl))
+            self.remaining_enemies.append(Enemy(lvl=lvl))
 
         self.active_enemies = []
+        self.fill_active_slots(init=True)
+        # select up to 4 enemies to be moved to the active slot
+        
+
+    def fill_active_slots(self, init=False):
+
+        open_slots = 4 if init else len(self.active_enemies)
+        amt_to_add = 0 if open_slots == 0 else random.randint(1, open_slots)
+
+        for i in range(1, amt_to_add+1):
+            if len(self.remaining_enemies) > 0:
+                self.active_enemies.append(self.remaining_enemies[0])
+                self.remaining_enemies = self.remaining_enemies[1:]
 
     def enemies_alive(self):
-        all_dead = True
-        for e in self.all_enemies:
+        for e in self.remaining_enemies:
             if e.is_alive():
-                all_dead = False 
+                return False 
         
-        return all_dead
+        return True
 
     
     def resolve(self):
+        import pdb
+        pdb.set_trace()
+        print(f"player alive: {self.player.is_alive()} and enemies alive {self.enemies_alive()}")
         while self.player.is_alive() and self.enemies_alive():
-            player_cmd = input("select a character to attack")
+            player_cmd = -1
+            while int(player_cmd) < 1 or int(player_cmd) > len(self.player.party):
+                player_cmd = input(f"select a character to attack 1 - {len(self.player.party)}")
+
 
     def __repr__(self):
         res = ""
-        for e in self.all_enemies:
+        res += f"{self.player.__rich__()}\nvs.\n"
+        res += "[ACTIVE ENEMIES]\n"
+        for e in self.active_enemies:
+            res += f"{e}\n"
+        res += "[REMAINING ENEMIES]\n"
+        for e in self.remaining_enemies:
             res += f"{e}\n"
         return res
 
-print(Encounter())
+e = Encounter()
+e.resolve()
+

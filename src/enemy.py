@@ -12,6 +12,7 @@ class Enemy():
         self.defense = tgt_def[self.level-1]
         self.attack = None
         self.name = name
+        self.is_lured = False
 
     def is_alive(self):
         return self.current_hp > 0
