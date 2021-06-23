@@ -1,1 +1,1 @@
-{"party": [{"name": "Giles Forde", "max_hp": 25, "current_hp": 25, "tracks": ["Physicality", "Precision"], "track_xp": {"Physicality": 0, "Precision": 0}, "inventory": {"Physicality": [5, 0, 0, 0, 0, 0, 0], "Precision": [5, 0, 0, 0, 0, 0, 0]}}], "coins": 10}
+{"party": [{"name": "Balde", "max_hp": 25, "current_hp": 25, "tracks": ["Physicality", "Precision"], "track_xp": {"Physicality": 0, "Precision": 0}, "inventory": {"Physicality": [5, 0, 0, 0, 0, 0, 0], "Precision": [5, 0, 0, 0, 0, 0, 0]}}], "coins": 10}

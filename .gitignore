@@ -1,2 +1,3 @@
-src/conf.py
+*.pyc
 save_file.json
+src/__pycache__/

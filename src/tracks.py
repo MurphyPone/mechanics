@@ -12,43 +12,43 @@ TRACKS = {
             "name": "Feather",
             "prop_acc": 70, # used for calculating accuracy
             "target": Target.ONE_T, # who can this attack target
-            "range": range(8, 10+1), # the output range
+            "range": (8, 10), # the output range
         },
         {
             "name": "Megaphone",
             "prop_acc": 70, 
             "target": Target.ALL_T, 
-            "range": range(15, 18+1), 
+            "range": (15, 18), 
         },
         {
            "name": "Lipstick",
             "prop_acc": 70, 
             "target": Target.ONE_T, 
-            "range": range(25, 30+1), 
+            "range": (25, 30), 
         },
         {
            "name": "Bamboo Cane",
             "prop_acc": 70, 
             "target": Target.ALL_T, 
-            "range": range(40, 45+1), 
+            "range": (40, 45), 
         },
         {
            "name": "Pixie Dust",
             "prop_acc": 70, 
             "target": Target.ONE_T, 
-            "range": range(60, 70+1), 
+            "range": (60, 70), 
         },
         {
            "name": "Juggling Cubes",
             "prop_acc": 70, 
             "target": Target.ALL_T, 
-            "range": range(90, 120+1), 
+            "range": (90, 120), 
         },
         {
            "name": "High Dive",
             "prop_acc": 100, 
             "target": Target.ALL_T, 
-            "range": range(210, 210+1), 
+            "range": (210, 210), 
         },
     ], 
     "Ambush": [ # trap 
@@ -56,43 +56,43 @@ TRACKS = {
             "name": "Banana Peel",
             "prop_acc": 0, # used for calculating accuracy
             "target": Target.ONE_E, # who can this attack target
-            "range": range(10, 12+1), # the output range
+            "range": (10, 12), # the output range
         },
         {
             "name": "Rake",
             "prop_acc": 0, 
             "target": Target.ONE_T, 
-            "range": range(18, 20+1), 
+            "range": (18, 20), 
         },
         {
             "name": "Marbles",
             "prop_acc": 0, 
             "target": Target.ONE_T, 
-            "range": range(30, 35+1), 
+            "range": (30, 35), 
         },
         {
             "name": "Quicksand",
             "prop_acc": 0, 
             "target": Target.ONE_T, 
-            "range": range(40, 50+1), 
+            "range": (40, 50), 
         },
         {
             "name": "Trap Door",
             "prop_acc": 0, 
             "target": Target.ONE_T, 
-            "range": range(60, 70+1), 
+            "range": (60, 70), 
         },
         {
            "name": "TNT",
             "prop_acc": 0, 
             "target": Target.ONE_T, 
-            "range": range(90, 180+1), 
+            "range": (90, 180), 
         },
         {
            "name": "Railroad",
             "prop_acc": 0, 
             "target": Target.ALL_T, 
-            "range": range(195, 195+1), 
+            "range": (195, 195), 
         },
     ], 
     "Illusion": [ # / psychosis? # lure
@@ -144,43 +144,43 @@ TRACKS = {
             "name": "Bike Horn",
             "prop_acc": 95, # used for calculating accuracy
             "target": Target.ALL_E, # who can this attack target
-            "range": range(3, 3+1), # the output range
+            "range": (3, 3), # the output range
         },
         {
             "name": "Whistle",
             "prop_acc": 95, 
             "target": Target.ALL_E, 
-            "range": range(5, 7+1), 
+            "range": (5, 7), 
         },
         {
             "name": "Bugle",
             "prop_acc": 95, 
             "target": Target.ALL_E, 
-            "range": range(9, 11+1), 
+            "range": (9, 11), 
         },
         {
             "name": "Aoogah",
             "prop_acc": 95, 
             "target": Target.ALL_E, 
-            "range": range(14, 16+1), 
+            "range": (14, 16), 
         },
         {
             "name": "Elephant Trunk",
             "prop_acc": 95, 
             "target": Target.ALL_E, 
-            "range": range(19, 21+1), 
+            "range": (19, 21), 
         },
         {
             "name": "Foghorn",
             "prop_acc": 95, 
             "target": Target.ALL_E, 
-            "range": range(25, 50+1), 
+            "range": (25, 50), 
         },
         {
             "name": "Opera Singer",
             "prop_acc": 95, 
             "target": Target.ALL_E, 
-            "range": range(90, 90+1), 
+            "range": (90, 90), 
         },
     ], 
     "Physicality": [ # throw
@@ -188,43 +188,43 @@ TRACKS = {
             "name": "Cupcake",
             "prop_acc": 75, # used for calculating accuracy
             "target": Target.ONE_E, # who can this attack target
-            "range": range(4, 6+1), # the output range
+            "range": (4, 6), # the output range
         },
         {
             "name": "Fruit Pie Slice",
             "prop_acc": 75, 
             "target": Target.ONE_E, 
-            "range": range(8, 10+1), 
+            "range": (8, 10), 
         },
         {
             "name": "Cream Pie Slice",
             "prop_acc": 75, 
             "target": Target.ONE_E, 
-            "range": range(14, 17+1), 
+            "range": (14, 17), 
         },
         {
             "name": "Whole Fruit Pie",
             "prop_acc": 75, 
             "target": Target.ONE_E, 
-            "range": range(24, 27+1), 
+            "range": (24, 27), 
         },
         {
             "name": "Whole Cream Pie",
             "prop_acc": 75, 
             "target": Target.ONE_E, 
-            "range": range(36, 40+1), 
+            "range": (36, 40), 
         },
         {
             "name": "Birthday Cake",
             "prop_acc": 75, 
             "target": Target.ONE_E, 
-            "range": range(48, 100+1), 
+            "range": (48, 100), 
         },
         {
             "name": "Wedding Cake",
             "prop_acc": 75, 
             "target": Target.ALL_E, 
-            "range": range(120, 120+1), 
+            "range": (120, 120), 
         },
     ], 
     "Precision": [ # squirt
@@ -232,43 +232,43 @@ TRACKS = {
             "name": "Squirting Flower",
             "prop_acc": 95, # used for calculating accuracy
             "target": Target.ONE_E, # who can this attack target
-            "range": range(3, 4+1), # the output range
+            "range": (3, 4), # the output range
         },
         {
             "name": "Glass of Water",
             "prop_acc": 95, 
             "target": Target.ONE_E, 
-            "range": range(6, 8+1), 
+            "range": (6, 8), 
         },
         {
             "name": "Squirt Gun",
             "prop_acc": 95, 
             "target": Target.ONE_E, 
-            "range": range(10, 12+1), 
+            "range": (10, 12), 
         },
         {
             "name": "Seltzer Bottle",
             "prop_acc": 95, 
             "target": Target.ONE_E, 
-            "range": range(18, 21+1), 
+            "range": (18, 21), 
         },
         {
             "name": "Fire Hose",
             "prop_acc": 95, 
             "target": Target.ONE_E, 
-            "range": range(27, 30+1), 
+            "range": (27, 30), 
         },
         {
             "name": "Storm Cloud",
             "prop_acc": 95, 
             "target": Target.ONE_E, 
-            "range": range(36, 80+1), 
+            "range": (36, 80), 
         },
         {
             "name": "Geyser",
             "prop_acc": 95, 
             "target": Target.ALL_E, 
-            "range": range(105, 105+1), 
+            "range": (105, 105), 
         },
     ], 
     "Berserking": [ # drop
@@ -276,56 +276,56 @@ TRACKS = {
             "name": "Flower Pot",
             "prop_acc": 50, 
             "target": Target.ONE_E, 
-            "range": range(10, 10+1), 
+            "range": (10, 10), 
         },
         {
             "name": "Sandbag",
             "prop_acc": 50, 
             "target": Target.ONE_E, 
-            "range": range(18, 18+1), 
+            "range": (18, 18), 
         },
         {
             "name": "Anvil",
             "prop_acc": 50, 
             "target": Target.ONE_E, 
-            "range": range(30, 30+1), 
+            "range": (30, 30), 
         },
         {
             "name": "Big Weight",
             "prop_acc": 50, 
             "target": Target.ONE_E, 
-            "range": range(45, 45+1), 
+            "range": (45, 45), 
         },
         {
             "name": "Safe",
             "prop_acc": 50, 
             "target": Target.ONE_E, 
-            "range": range(60, 60+1), 
+            "range": (60, 60), 
         },
         {
             "name": "Grand Piano",
             "prop_acc": 50, 
             "target": Target.ONE_E, 
-            "range": range(85, 170+1), 
+            "range": (85, 170), 
         },
         {
             "name": "Toontanic LMAOOOO",
             "prop_acc": 50, 
             "target": Target.ALL_E,
-            "range": range(180, 180+1),
+            "range": (180, 180),
         },
     ],
 }
 
 TRACKS_META = {
     "descriptions": {
-        "Healing": "heal other members of your party with medium-high accuracy",
-        "Ambush": "lay a trap that deals huge damage, but the targeted enemy must be lured onto the trap.",
-        "Illusion": "lure enemies with low-medium accuracy, granting a damage buff for Physicality and Precision attacks.  Lured enemies activate any traps in front of them.",
-        "Hex": "cast a blanket of high accuracy, medium damage to all enemies simultanesouly.  Hexing enemies disillusions them.",
-        "Physicality": "deal high damage with medium accuracy",
-        "Precision": "deal medium damage with high accuracy",
-        "Berserking": "unleash blind, inaccurate fury with high damage.  Lured enemies will always dodge a berserking attack.",
+        "Healing":      "Heal other members of your party with medium-high accuracy",
+        "Ambush":       "Lay a trap that deals huge damage, but the targeted enemy must be lured onto the trap.",
+        "Illusion":     "Lure enemies with low-medium accuracy, granting a damage buff for Physicality and Precision attacks.  Lured enemies activate any traps in front of them.",
+        "Hex":          "Cast a blanket of high accuracy, medium damage to all enemies simultanesouly.  Hexing enemies disillusions them.",
+        "Physicality":  "Deal high damage with medium accuracy",
+        "Precision":    "Deal medium damage with high accuracy",
+        "Berserking":   "Unleash blind, inaccurate fury with high damage.  Lured enemies will always dodge a berserking attack.",
     },
     "xp_unlock":    [0,  20, 100, 800, 2000, 6000, 10000],
     "xp_use":       [1,  2,  4,   8,   16,   32,   64],

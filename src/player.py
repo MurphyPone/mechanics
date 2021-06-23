@@ -1,8 +1,6 @@
-from collections import OrderedDict
+import json
 from character import Character, get_random_character
 from utils import SAVE_FILE
-from enemy import Enemy
-import json
 
 class Player():
     def __init__(self, dic=None):
@@ -12,7 +10,7 @@ class Player():
         else: 
             self.party = [Character()]
             self.coins = 10
-        self.save_location = "save_file.json"
+        self.save_location = SAVE_FILE
 
     def add_party_member(self):
         if len(self.party) < 4:
@@ -34,7 +32,13 @@ class Player():
         else:
             return self.party[0].show_inventory()
 
-
+    def is_alive(self):
+        all_dead = True
+        for c in self.party:
+            if c.is_alive():
+                all_dead = False 
+        
+        return all_dead
 
     def __rich__(self, index=None):
         if index and index >= 0 and index < len(self.party):

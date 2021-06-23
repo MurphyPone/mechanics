@@ -8,6 +8,7 @@ from utils import COMMANDS, TARGET2STRING, SAVE_FILE
 from player import Player
 from tracks import TRACKS, TRACKS_META, get_track_color
 from character import get_random_character, Character
+from lore import PROLOGUE
 
 console = Console(highlight=False)
 player = None
@@ -20,7 +21,7 @@ if os.path.isfile(SAVE_FILE):
 else:
     player = Player()
     console.rule(":gear: [bold yellow]Greetings Player, welcome back to [italic]Mechanics[/italic]![/bold yellow] :gear:")
-    console.print("prologue")
+    console.print(f"[italic]{PROLOGUE}[/italic]")
 
 def main():
 
@@ -37,9 +38,11 @@ def main():
         if cmd == "":
             pass
 
-        elif cmd == "help":
-             for c, desc in COMMANDS.items():
-                console.print(f"\t[bold]{c}[/bold]\t\t{desc}")
+        elif cmd in ["help", "h"]:
+            max_width = max([len(c) for c in COMMANDS.keys()])
+            for c, desc in COMMANDS.items():
+                just_cmd = f"{c}".ljust(max_width)
+                console.print(f"\t[bold]{just_cmd}[/bold]\t{desc}")
 
         elif cmd in ["party", "p"]:
             console.print(player)
@@ -52,13 +55,11 @@ def main():
                         console.print(f"\t[bold {color}]{track}[/bold {color}]\t{TRACKS_META['descriptions'][track]}\n")
                         
                         max_width = max([len(atk['name']) for atk in TRACKS[track]])
-                        
+                        console.print(f"\t[bold]{'attack'.ljust(max_width)}\t{'target'.ljust(len('a single enemy'))}\toutput range[/bold]")
                         for atk in TRACKS[track]:
-                            just_name = f"{atk['name']}:".ljust(max_width)
+                            just_name = f"{atk['name']}".ljust(max_width)
                             console.print(f"\t[bold]{just_name}[/bold]\t{TARGET2STRING[atk['target']]}\t{atk['range']}")
 
-
-            
             else: # just `tracks`
                 max_width = max([len(key) for key in TRACKS.keys()])
                 for track, desc in TRACKS_META["descriptions"].items():
@@ -73,6 +74,9 @@ def main():
                 console.print(player.show_inventory(int(args[0])))
             else:
                 console.print(player.show_inventory())
+
+        elif cmd in ["fight"]:
+            pass
 
         elif cmd == "exit" or cmd == "quit":
             safely_quit()

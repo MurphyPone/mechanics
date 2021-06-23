@@ -2,8 +2,8 @@ import random
 
 from tracks import TRACKS, TRACKS_META, get_track_color
 from tracks import *
-from enemy import Enemy
-from utils import millify, NAMES
+from utils import millify
+from lore import NAMES
 
 class Character:
     def __init__(self, dic=None):
@@ -52,6 +52,9 @@ class Character:
         bonus = 0 
 
         return prop_acc + track_xp + tgt_def + bonus
+
+    def is_alive(self):
+        return self.current_hp > 0
 
     # should get called by player which checks if user has enough coin
     # todo allow the user to purchase an amount?
@@ -113,9 +116,9 @@ def get_random_character():
         c.add_xp(track, random.randint(0, 1e4))
     return c 
 
-c = Character()
+# c = Character()
 # c.buy_attack("Precision", 1)
-print(c.show_inventory())
+# print(c.show_inventory())
 
 
 # e = Enemy(lvl=12)
