@@ -8,7 +8,8 @@ class Player():
             self.party = [Character(dic=v) for v in dic["party"]]
             self.coins = dic["coins"]
         else: 
-            self.party = [Character()]
+            # self.party = [Character()]
+            self.party = [get_random_character(), get_random_character()]
             self.coins = 10
         self.save_location = SAVE_FILE
 

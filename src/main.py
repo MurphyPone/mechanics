@@ -5,10 +5,12 @@ import json
 from rich.console import Console
 
 from utils import COMMANDS, TARGET2STRING, SAVE_FILE
+from command_parser import *
 from player import Player
 from tracks import TRACKS, TRACKS_META, get_track_color
 from character import get_random_character, Character
 from lore import PROLOGUE
+
 
 console = Console(highlight=False)
 player = None
@@ -34,6 +36,7 @@ def main():
         args = inpt[1:]
         console.log(f"cmd: {cmd}, args: {args}")
 
+        # TODO move commands into "in-combat" and "not-in-combat" groups
         # move to a helper that parses commands
         if cmd == "":
             pass
@@ -55,10 +58,10 @@ def main():
                         console.print(f"\t[bold {color}]{track}[/bold {color}]\t{TRACKS_META['descriptions'][track]}\n")
                         
                         max_width = max([len(atk['name']) for atk in TRACKS[track]])
-                        console.print(f"\t[bold]{'attack'.ljust(max_width)}\t{'target'.ljust(len('a single enemy'))}\toutput range[/bold]")
-                        for atk in TRACKS[track]:
+                        console.print(f"\t[bold]  {'attack'.ljust(max_width)}\t{'target'.ljust(len('a single enemy'))}\toutput range[/bold]")
+                        for i, atk in enumerate(TRACKS[track]):
                             just_name = f"{atk['name']}".ljust(max_width)
-                            console.print(f"\t[bold]{just_name}[/bold]\t{TARGET2STRING[atk['target']]}\t{atk['range']}")
+                            console.print(f"\t{i+1} [bold]{just_name}[/bold]\t{TARGET2STRING[atk['target']]}\t{atk['range']}")
 
             else: # just `tracks`
                 max_width = max([len(key) for key in TRACKS.keys()])
