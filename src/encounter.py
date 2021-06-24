@@ -7,6 +7,15 @@ from tracks import TRACKS, TRACKS_META, get_track_color
 from utils import TARGET2STRING
 
 
+ENCOUTERS_META = {
+    "descriptions": {
+        "Street":   "Fight a single wave of 2-8 enemies",
+        "Tower":    "Battle through 1-5 floors of increasingly difficult enemies",
+        "Factory":  "Test your strength a sprawling dungeon of enemies"
+    }
+}
+
+
 # an encounter is a sub game loop ?
 # each loop there should be a chance to add another cog from the queue to the active slots if # < 4
 class Encounter():
@@ -121,7 +130,7 @@ class Encounter():
                 res += f"\t{track}: {ls}\n"
         return res
 
-e = Encounter()
-print(e)
-e.resolve()
+# e = Encounter()
+# print(e)
+# e.resolve()
 

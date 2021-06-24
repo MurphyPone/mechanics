@@ -1,6 +1,8 @@
 import math
+
 import discord 
 from tracks import Target
+
 
 def millify(n):
     millnames = ['','K','M',' B',' T']
@@ -17,14 +19,7 @@ TARGET2STRING = {
     Target.ONE_T: "a single ally",
 }
 
-COMMANDS = {
-    "help": "Displays a list of commands",
-    "tutorial": "Leads the player through the tutorial",
-    "tracks" :"Displays Information about character ability tracks",
-    "party": "Display an overview of your party",
-    "inventory": "Displays a character's inventory",
-    "fight": "Begin a combat encounter"
-}
+
 
 SAVE_FILE = "save_file.json"
 

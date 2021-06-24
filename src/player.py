@@ -7,10 +7,12 @@ class Player():
         if dic is not None:
             self.party = [Character(dic=v) for v in dic["party"]]
             self.coins = dic["coins"]
+            self.fighting = dic["fighting"]
         else: 
             # self.party = [Character()]
             self.party = [get_random_character(), get_random_character()]
             self.coins = 10
+            self.fighting = False
         self.save_location = SAVE_FILE
 
     def add_party_member(self):
@@ -44,7 +46,7 @@ class Player():
         if index and index >= 0 and index < len(self.party):
             return self.party[index]
 
-        res = f"Coins: {self.coins}\nParty Member(s)\n"
+        res = f"Coins: {self.coins}\tIn Combat: {self.fighting}\nParty Member(s)\n"
         for character in self.party:
             res += character.__repr__()
             res += "-" * 46  + "\n"
@@ -53,7 +55,8 @@ class Player():
     def to_dict(self):
         return {
             "party": [c.to_dict() for c in self.party],
-            "coins": self.coins
+            "coins": self.coins,
+            "fighting": self.fighting
         }
 
     def save(self):
