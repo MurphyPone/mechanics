@@ -104,10 +104,10 @@ class Parser():
                 self.console.print(f"\t[bold {color}]{track}[/bold {color}]\t{TRACKS_META['descriptions'][track]}\n")
                 
                 max_width = max([len(atk['name']) for atk in TRACKS[track]])
-                self.console.print(f"\t[bold]  {'attack'.ljust(max_width)}\t{'target'.ljust(len('a single enemy'))}\toutput range[/bold]")
+                self.console.print(f"\t[bold]  {'attack'.ljust(max_width)}\t{'target'.ljust(len('a single enemy'))}\toutput range\tdescription[/bold]")
                 for i, atk in enumerate(TRACKS[track]):
                     justified_name = f"{atk['name']}".ljust(max_width)
-                    self.console.print(f"\t{i+1} [bold]{justified_name}[/bold]\t{TARGET2STRING[atk['target']]}\t{atk['range']}")
+                    self.console.print(f"\t{i+1} [bold]{justified_name}[/bold]\t{TARGET2STRING[atk['target']]}\t{str(atk['range']).ljust(len('output range'))}\t{atk['description']}")
 
     def inventory(self, args=None):
         """displays the inventory of all characters or a specified character"""

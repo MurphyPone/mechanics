@@ -9,310 +9,365 @@ class Target(Enum):
 TRACKS = {
     "Healing": [ # toonup # entries in this list are indexed by level
         {
-            "name": "Feather",
+            "name": "Small Bandage",
             "prop_acc": 70, # used for calculating accuracy
             "target": Target.ONE_T, # who can this attack target
             "range": (8, 10), # the output range
+            "description": "Apply a small bandage to a wound"
         },
         {
-            "name": "Megaphone",
+            "name": "Gauze",
             "prop_acc": 70, 
             "target": Target.ALL_T, 
             "range": (15, 18), 
+            "description": "Wrap a wound in gauze"
         },
         {
-           "name": "Lipstick",
+            "name": "Potent Ointment",
             "prop_acc": 70, 
             "target": Target.ONE_T, 
             "range": (25, 30), 
+            "description": "Apply a healing ointment to a wound"
         },
         {
-           "name": "Bamboo Cane",
+            "name": "Large Bandage",
             "prop_acc": 70, 
             "target": Target.ALL_T, 
             "range": (40, 45), 
+            "description": "Apply a larger bandage to a wound"
         },
         {
-           "name": "Pixie Dust",
+            "name": "Elixir of Rejuvination",
             "prop_acc": 70, 
             "target": Target.ONE_T, 
             "range": (60, 70), 
+            "description": "Cure ailments with a nice beverage"
         },
         {
-           "name": "Juggling Cubes",
+            "name": "Sap of Gondor",
             "prop_acc": 70, 
             "target": Target.ALL_T, 
             "range": (90, 120), 
+            "description": "Illustrious medical aid"
         },
         {
-           "name": "High Dive",
+            "name": "Messianic Invocation",
             "prop_acc": 100, 
             "target": Target.ALL_T, 
             "range": (210, 210), 
+            "description": "Call upon Divine intervention"
         },
     ], 
     "Ambush": [ # trap 
         {
-            "name": "Banana Peel",
+            "name": "Broken Glass",
             "prop_acc": 0, # used for calculating accuracy
             "target": Target.ONE_E, # who can this attack target
             "range": (10, 12), # the output range
+            "description": "Throw a bottle at the feet of your foes"
         },
         {
-            "name": "Rake",
+            "name": "Trip Wire",
             "prop_acc": 0, 
             "target": Target.ONE_T, 
             "range": (18, 20), 
+            "description": "May your foes trip"
         },
         {
-            "name": "Marbles",
+            "name": "Spikes",
             "prop_acc": 0, 
             "target": Target.ONE_T, 
             "range": (30, 35), 
+            "description": "Deliberately sharp"
         },
         {
-            "name": "Quicksand",
+            "name": "Acid Pool",
             "prop_acc": 0, 
             "target": Target.ONE_T, 
-            "range": (40, 50), 
+            "range": (40, 50),
+            "description": "Throw a vile of acid which burns" 
         },
         {
-            "name": "Trap Door",
+            "name": "Pit",
             "prop_acc": 0, 
             "target": Target.ONE_T, 
             "range": (60, 70), 
+            "description": "Dig a deep pit in front of an enemy"
         },
         {
-           "name": "TNT",
+           "name": "Bear Trap",
             "prop_acc": 0, 
             "target": Target.ONE_T, 
             "range": (90, 180), 
+            "description": "Catch them ankles"
         },
         {
-           "name": "Railroad",
+           "name": "Landmine",
             "prop_acc": 0, 
             "target": Target.ALL_T, 
             "range": (195, 195), 
+            "description": "A large explosion"
         },
     ], 
     "Illusion": [ # / psychosis? # lure
         {
-            "name": "$1 Bill",
+            "name": "Lamb Chop",
             "prop_acc": 50, # used for calculating accuracy
             "target": Target.ONE_E, # who can this attack target
-            "range": 0
+            "range": 0,
+            "description": "Allured a foe with a tasty treat"
         },
         {
-            "name": "Small Magnet",
+            "name": "Distort Perception",
             "prop_acc": 50, 
             "target": Target.ALL_E, 
-            "range": 0
+            "range": 0,
+            "description": "Distort your enemies such that they approach"
         },
         {
-            "name": "$5 Bill",
+            "name": "Mage Hand",
             "prop_acc": 60, 
             "target": Target.ONE_E, 
-            "range": 0
+            "range": 0,
+            "description": "Magically pull an enemy closer"
         },
         {
-            "name": "Big Magnet",
+            "name": "Viscious Taunt",
             "prop_acc": 60, 
             "target": Target.ALL_E, 
-            "range": 0
+            "range": 0,
+            "description": "'stinky'"
         },
         {
-            "name": "$10 Bill",
+            "name": "Whip",
             "prop_acc": 70, 
             "target": Target.ONE_E, 
             "range": 0, 
+            "description": "Physically draw an an enemey closer"
         },
         {
-           "name": "Lure Goggles",
+           "name": "Spacial Rift",
             "prop_acc": 70, 
             "target": Target.ALL_E, 
             "range": 0,
+            "description": "Tear the fabric of reality to shrink the distance between all enemies"
         },
         {
-           "name": "Presentation",
+           "name": "Siren Song",
             "prop_acc": 90, 
             "target": Target.ALL_E, 
-            "range": 0
+            "range": 0,
+            "description": "Seduce all enemies"
         },
     ], 
     "Hex": [ # Sound
         {
-            "name": "Bike Horn",
+            "name": "Daze",
             "prop_acc": 95, # used for calculating accuracy
             "target": Target.ALL_E, # who can this attack target
             "range": (3, 3), # the output range
+            "description": "Concuss all enemies with a minor spell"
         },
         {
-            "name": "Whistle",
+            "name": "Shrowded Stench",
             "prop_acc": 95, 
             "target": Target.ALL_E, 
             "range": (5, 7), 
+            "description": "Break wind"
         },
         {
-            "name": "Bugle",
+            "name": "Opressive Aura",
             "prop_acc": 95, 
             "target": Target.ALL_E, 
             "range": (9, 11), 
+            "description": "Conjure a thick aura which stifles enemies"
         },
         {
-            "name": "Aoogah",
+            "name": "Bout of Water",
             "prop_acc": 95, 
             "target": Target.ALL_E, 
             "range": (14, 16), 
+            "description": "Douse foes with a blanket of liquid"
         },
         {
-            "name": "Elephant Trunk",
+            "name": "Cone of Flame",
             "prop_acc": 95, 
             "target": Target.ALL_E, 
             "range": (19, 21), 
+            "description": "Torch all enemies before you"
         },
         {
-            "name": "Foghorn",
+            "name": "Lightning Strike",
             "prop_acc": 95, 
             "target": Target.ALL_E, 
             "range": (25, 50), 
+            "description": "Smite foes with a bolt of lightning which chains between them"
         },
         {
-            "name": "Opera Singer",
+            "name": "Ethereal Scythe",
             "prop_acc": 95, 
             "target": Target.ALL_E, 
             "range": (90, 90), 
+            "description": "Summon a magical blade which cuts all enemies"
         },
     ], 
     "Physicality": [ # throw
         {
-            "name": "Cupcake",
+            "name": "Punch",
             "prop_acc": 75, # used for calculating accuracy
             "target": Target.ONE_E, # who can this attack target
             "range": (4, 6), # the output range
+            "description": "Hit an enemy"
+
         },
         {
-            "name": "Fruit Pie Slice",
+            "name": "Dagger",
             "prop_acc": 75, 
             "target": Target.ONE_E, 
             "range": (8, 10), 
+            "description": "Slice and dice"
+
         },
         {
-            "name": "Cream Pie Slice",
+            "name": "Nuncucks",
             "prop_acc": 75, 
             "target": Target.ONE_E, 
-            "range": (14, 17), 
+            "range": (14, 17),
+            "description": "Bangem around"
+ 
         },
         {
-            "name": "Whole Fruit Pie",
+            "name": "Rapier",
             "prop_acc": 75, 
             "target": Target.ONE_E, 
             "range": (24, 27), 
+            "description": "Filet"
+
         },
         {
-            "name": "Whole Cream Pie",
+            "name": "Pike",
             "prop_acc": 75, 
             "target": Target.ONE_E, 
-            "range": (36, 40), 
+            "range": (36, 40),
+            "description": "Stab"
         },
         {
-            "name": "Birthday Cake",
+            "name": "Broadsword",
             "prop_acc": 75, 
             "target": Target.ONE_E, 
             "range": (48, 100), 
+            "description": "Heave a mighty sword"
         },
         {
-            "name": "Wedding Cake",
+            "name": "Buster Sword",
             "prop_acc": 75, 
             "target": Target.ALL_E, 
-            "range": (120, 120), 
+            "range": (120, 120),
+            "description": "it's bigger than you"
+ 
         },
     ], 
     "Precision": [ # squirt
         {
-            "name": "Squirting Flower",
+            "name": "Throw a rock",
             "prop_acc": 95, # used for calculating accuracy
             "target": Target.ONE_E, # who can this attack target
             "range": (3, 4), # the output range
+            "description": "might as well be a tomatoe"
+
         },
         {
-            "name": "Glass of Water",
+            "name": "Slingshot",
             "prop_acc": 95, 
             "target": Target.ONE_E, 
-            "range": (6, 8), 
+            "range": (6, 8),
+            "description": "like throwing a rock, but a bit better" 
         },
         {
-            "name": "Squirt Gun",
+            "name": "Bow",
             "prop_acc": 95, 
             "target": Target.ONE_E, 
             "range": (10, 12), 
+            "description": "fire an arrow at them" 
         },
         {
-            "name": "Seltzer Bottle",
+            "name": "Spear",
             "prop_acc": 95, 
             "target": Target.ONE_E, 
             "range": (18, 21), 
+            "description": "put an eye out with that thing" 
         },
         {
-            "name": "Fire Hose",
+            "name": "Cross Bow",
             "prop_acc": 95, 
             "target": Target.ONE_E, 
             "range": (27, 30), 
+            "description": "stronger than you'll ever be" 
         },
         {
-            "name": "Storm Cloud",
+            "name": "Rifle",
             "prop_acc": 95, 
             "target": Target.ONE_E, 
-            "range": (36, 80), 
+            "range": (36, 80),
+            "description": "let that puppy bark"  
         },
         {
-            "name": "Geyser",
+            "name": "Golden Gun",
             "prop_acc": 95, 
             "target": Target.ALL_E, 
             "range": (105, 105), 
+            "description": "that's what's up " 
         },
     ], 
     "Berserking": [ # drop
         {
-            "name": "Flower Pot",
+            "name": "Red - Chevelle",
             "prop_acc": 50, 
             "target": Target.ONE_E, 
-            "range": (10, 10), 
+            "range": (10, 10),
+            "description": "pump up music" 
         },
         {
-            "name": "Sandbag",
+            "name": "Hot Headed",
             "prop_acc": 50, 
             "target": Target.ONE_E, 
             "range": (18, 18), 
+            "description": "channel anger through your fists" 
         },
         {
-            "name": "Anvil",
+            "name": "Haymaker",
             "prop_acc": 50, 
             "target": Target.ONE_E, 
             "range": (30, 30), 
+            "description": "Loose heavy punch" 
         },
         {
-            "name": "Big Weight",
+            "name": "Dive",
             "prop_acc": 50, 
             "target": Target.ONE_E, 
-            "range": (45, 45), 
+            "range": (45, 45),
+            "description": "Dive at a foe" 
         },
         {
-            "name": "Safe",
+            "name": "Spinning Swing",
             "prop_acc": 50, 
             "target": Target.ONE_E, 
             "range": (60, 60), 
+            "description": "angular momentum" 
         },
         {
-            "name": "Grand Piano",
+            "name": "Seethe",
             "prop_acc": 50, 
             "target": Target.ONE_E, 
             "range": (85, 170), 
+            "description": "vision goes red, strike with impunity" 
         },
         {
-            "name": "Toontanic LMAOOOO",
+            "name": "Pact with the Devil",
             "prop_acc": 50, 
             "target": Target.ALL_E,
             "range": (180, 180),
+            "description": "Death smiles as your attacks deliver souls to Hell" 
         },
     ],
 }
