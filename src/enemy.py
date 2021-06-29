@@ -18,4 +18,4 @@ class Enemy():
         return self.current_hp > 0
 
     def __repr__(self):
-        return f"Level {self.level} {self.name} ({self.current_hp} / {self.max_hp})"
+        return f"Level {self.level} {self.name} ({self.current_hp}/{self.max_hp})"

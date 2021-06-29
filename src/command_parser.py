@@ -1,6 +1,7 @@
 
 import sys 
 import os
+import cmd 
 from rich.console import Console
 
 from player import Player
@@ -17,12 +18,43 @@ COMMANDS = {
     "fight": "Begin a combat encounter"
 }
 
-COMBAT_ALLOWABLE = ["h", "help", "p", "party", "i", "inventory", "t", "tracks", "quit", "exit"]
+COMBAT_ALLOWABLE = ["h", "help", "p", "party", "i", "inv", "inventory", "t", "tracks", "quit", "exit"]
 
-class Parser():
-    def __init__(self, console=Console(highlight=False), player=Player()):
+class Parser(cmd.Cmd):
+    def __init__(self, player, console=Console(highlight=False) ):
+        super(Parser, self).__init__()
         self.console = console
         self.player = player
+        self.prompt = " "
+
+    # cmd.Cmd overrides
+    def cmdloop(self):
+        self.console.print(":gear:[yellow] Enter a command:[/yellow]", end="")
+        return cmd.Cmd.cmdloop(self)
+    
+    def postcmd(self, stop: bool, line: str) -> bool:
+        self.console.print(":gear:[yellow] Enter a command:[/yellow]", end="")
+        return super().postcmd(stop, line)
+    
+    def parseline(self, line):
+        line.lower()
+        ret = cmd.Cmd.parseline(self, line)
+        return ret
+
+    def do_EOF(self, line):
+        self.safely_quit()
+
+    def default(self, line):
+        self.console.print(f"[italic red]Command '{line}' not recognized [/italic red]")
+        return
+
+    def emptyline(self):
+        return 
+
+    # def default(self, line):
+    #     print 'default(%s)' % line
+    #     return cmd.Cmd.default(self, line)
+
 
     def clean_input(self, inpt) -> str:
         """strips excessive whitespace and from a raw input, converts it to lowercase and returns a tuple of the first command and the args"""
@@ -32,38 +64,7 @@ class Parser():
 
         return cmd, args
 
-    def parse_command(self, inpt, args=None):
-        """parses a command by passing the input command to the relevant handler"""
-
-        cmd, args = self.clean_input(inpt)
-    
-    # TODO come up with a way to show/hint aliases nicely
-        # empty command, return to prompt
-        if cmd == "":
-            pass 
-    
-        elif cmd in ["help", "h"]:
-            self.show_help(cmd, args)
-
-        elif cmd in ["party", "p"]:
-            self.party()
-
-        elif cmd in ["tracks", "t"]:
-            self.tracks(args)
-
-        elif cmd in ["inventory", "i"]:
-            self.inventory(args)
-        
-        elif cmd in ["fight"]:
-            self.fight()
-
-        elif cmd in ["exit", "quit"]:
-            self.safely_quit()
-
-        else:
-            self.console.print(f"[italic red]Command not recognized [/italic red]")
-
-    def show_help(self, cmd=None, args=None):
+    def do_help(self, cmd=None, args=None):
         """displays a list of commands"""
 
         max_width = max([len(c) for c in COMMANDS.keys()])
@@ -71,16 +72,18 @@ class Parser():
             justified_command = f"{command}".ljust(max_width)
             self.console.print(f"\t[bold]{justified_command}[/bold]\t{description}")
 
-    def party(self):
+    def do_party(self, args):
         """displays info about the player as well as each of the Character members of the party"""
 
         self.console.print(self.player)
 
-    def tracks(self, args):
+    def do_tracks(self, track):
         """displays all the tracks, or a specific track""" 
+        # TODO error handle track not in 
 
-        if len(args) > 0:
-           self.specific_track(args[0])
+        self.console.log(track)
+        if len(track) > 0:
+           self.specific_track(track)
 
         else: 
             self.all_tracks()
@@ -109,12 +112,12 @@ class Parser():
                     justified_name = f"{atk['name']}".ljust(max_width)
                     self.console.print(f"\t{i+1} [bold]{justified_name}[/bold]\t{TARGET2STRING[atk['target']]}\t{str(atk['range']).ljust(len('output range'))}\t{atk['description']}")
 
-    def inventory(self, args=None):
+    def do_inventory(self, args=None):
         """displays the inventory of all characters or a specified character"""
-
+       
         if args and len(args) > 0 and args[0].isnumeric():
             idx = int(args[0])
-            self.console.print(self.player.show_inventory(idx))
+            self.console.print(self.player.show_inventory(idx=idx))
         else:
             self.console.print(self.player.show_inventory())
 
@@ -140,7 +143,7 @@ class Parser():
             # save the game
         elif inpt.lower() == "steet" or int(inpt) == 1:
             self.console.print(f"commense street fight")
-            Encounter().resolve()
+            Encounter(self.player).resolve()
         else:
             # self.player.fighting = True
             self.console.print(f"under construction")

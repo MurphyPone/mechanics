@@ -1,5 +1,6 @@
 import random
 from rich.console import Console
+from rich.table import Table
 
 from player import Player 
 from enemy import Enemy
@@ -42,6 +43,7 @@ class Encounter():
         
 
     def fill_active_slots(self, init=False):
+        """attempts to fill any active slots from remaining_enemies"""
 
         open_slots = 4 if init else len(self.active_enemies)
         amt_to_add = 0 if open_slots == 0 else random.randint(1, open_slots)
@@ -52,6 +54,7 @@ class Encounter():
                 self.remaining_enemies = self.remaining_enemies[1:]
 
     def enemies_alive(self):
+        """determines whether or not any enemies are alive"""
         if len(self.remaining_enemies) > 0:
             return True 
         
@@ -65,15 +68,21 @@ class Encounter():
     def resolve(self):
         # print(f"player alive: {self.player.is_alive()} and enemies alive {self.enemies_alive()}")
         while self.player.is_alive() and self.enemies_alive():
+            self.console.print(self.combat_table())
             player_cmd = -1
-            while player_cmd == "" or int(player_cmd)-1 < 0 or int(player_cmd) > len(self.player.party):
-                # TODO improve this prompt 
-                player_cmd = self.console.input(f'''[yellow]Your party members are[/yellow]\n\t{[f"{i+1, char.name}" for i, char in enumerate(self.player.party) ]}\nselect a character from your party: ''').strip()
+            while player_cmd == "" or int(player_cmd)-1 < 0 or int(player_cmd) - 1 > len(self.player.party)-1:
+
+                player_cmd = self.console.input(f'''[yellow]Select a character from your party {[i+1 for i in range(len(self.player.party))]}[/yellow]: ''').strip()
                 
                 # invalid 
-                if player_cmd.strip() == "" or not player_cmd.isnumeric():
+                if player_cmd.strip() == "":
+                    continue
+                elif not player_cmd.isnumeric():
                     self.console.print("[yellow]Invalid character selection, try again. [/yellow]", end='')
                     continue 
+                elif int(player_cmd)-1 < 0 or int(player_cmd) - 1 > len(self.player.party)-1:
+                    self.console.print(f"[yellow]Invalid character selection ({int(player_cmd)} not ∈ {[i+1 for i in range(len(self.player.party))]}), try again. [/yellow]", end='')
+                    continue
                 else:
                     # Do combat in here 
                     player_cmd = int(player_cmd) - 1
@@ -108,29 +117,61 @@ class Encounter():
                                 # lvl_cmd = self.console.input(f"[yellow]Select an attack Ability Track for[/yellow] {self.player.party[player_cmd].name}: ").strip()
 
                         pass 
+    
+    def combat_table(self, encounter_name="Encounter Name"):
+        table = Table(title=encounter_name)
+        
+        table.add_column("Your Party", justify="left", style="green")
+        table.add_column("Active Enemies", justify="right", style="bright_red")
+        table.add_column("Remaining Enemies", justify="right", style="bright_red")
+
+        len_party = len(self.player.party)
+        len_active = len(self.active_enemies)
+        len_remaining = len(self.remaining_enemies)
+
+        for i in range(max([len_party, len_active, len_remaining])):
+            char = f"{i+1} - {self.player.party[i].name} ({self.player.party[i].current_hp}/{self.player.party[i].max_hp})" if i < len_party else ""
+            active = self.active_enemies[i].__repr__() if i < len_active else ""
+            remaining = self.remaining_enemies[i].__repr__() if i < len_remaining else ""
+
+            table.add_row(char, active, remaining)
+        
+        return table 
+
+
 
 
 
 
     def __repr__(self):
-        res = ""
-        res += f"{[c.name for c in self.player.party]}\nvs.\n"
-        res += "[ACTIVE ENEMIES]\n"
-        for e in self.active_enemies:
-            res += f"{e}\n"
-        res += "[REMAINING ENEMIES]\n"
-        for e in self.remaining_enemies:
-            res += f"{e}\n"
+        
+        self.console.print(self.combat_table())
+        
+        for i, xp_dict in enumerate(self.xp_earned):
+            table = Table(title=f"{i} - {self.player.party[i].name}'s XP Earned")
+            table.add_column("Track", justify="left")
+            table.add_column("XP", justify="right")
 
-        res += "\nxp earned\n"
-        for i, c in enumerate(self.xp_earned):
-            # TODO, this chould be their name
-            res += f"{i+1} - {self.player.party[i].name}:\n"
-            for track, ls in c.items():
-                res += f"\t{track}: {ls}\n"
-        return res
+            for track, amt in xp_dict.items():
+                color = get_track_color(track)
+
+                table.add_row(f"[{color}]{str(track)}[/{color}]", str(amt))
+
+            self.console.print(table)
+
+        
+        
+
+        # res += "\nxp earned\n"
+        # for i, c in enumerate(self.xp_earned):
+        #     # TODO, this chould be their name
+        #     res += f"{i+1} - {self.player.party[i].name}:\n"
+        #     for track, ls in c.items():
+        #         res += f"\t{track}: {ls}\n"
+
+        return ""
 
 # e = Encounter()
-# print(e)
+# # print(e)
 # e.resolve()
 

@@ -4,10 +4,24 @@ A strategy rpg shell-based game written in Python.
 
 TODOS
 - [ ] - rebranding
-- [ ] - build a cmd history 
+    - [x] - rename all tracks
+    - [x] - rename all abilities
+    - [ ] Solamente Botafumieros - just a lil smoke thrower
+    - [ ] - come up with a cooler name:
+        - "Haunted, Horrid Hamlet"
+        - "Grim Grove"
+        - "Cadaverous, Cursed Conurbation"
+        - "Marauders' Metropolis"
+        - "Battles of the Burgh, Burrough, Bailiwick"
+        - "Vile, Violent Village"
+- [ ] - build a cmd history - extend the [cmd](https://docs.python.org/3/library/cmd.html) module
 - [ ] - finish encounter
 - [ ] - dynamic shell?
 - [ ] - standardize new line spacing
+- [ ] - installation
+    - `install.sh`
+    - 
+
 
 
 ## ToonTown Stat Blocks:

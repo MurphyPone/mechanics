@@ -11,24 +11,32 @@ from lore import PROLOGUE
 
 console = Console(highlight=False)
 
-if os.path.isfile(SAVE_FILE):
-    with open(SAVE_FILE, "r") as f:
-        player_dict = json.load(f)
-        player = Player(player_dict)
-    console.rule(":gear: [bold yellow]Greetings player, Welcome to [italic]Mechanics[/italic]![/bold yellow] :gear:")
-else:
+if len(sys.argv) > 1 and sys.argv[1] in ["new"]:
+    console.log("new game")
     player = Player()
     console.rule(":gear: [bold yellow]Greetings Player, welcome back to [italic]Mechanics[/italic]![/bold yellow] :gear:")
     console.print(f"[italic]{PROLOGUE}[/italic]")
+else:
+    console.log("Checking for save file")
+    if os.path.isfile(SAVE_FILE):
+        with open(SAVE_FILE, "r") as f:
+            player_dict = json.load(f)
+            player = Player(player_dict)
+        console.rule(":gear: [bold yellow]Greetings player, Welcome to [italic]Mechanics[/italic]![/bold yellow] :gear:")
+    else:
+        player = Player()
+        console.rule(":gear: [bold yellow]Greetings Player, welcome back to [italic]Mechanics[/italic]![/bold yellow] :gear:")
+        console.print(f"[italic]{PROLOGUE}[/italic]")
 
 parser = Parser(console=console, player=player)
 
 
 def main():
 
-    while True:
-        inpt = console.input(":gear:[yellow] Enter a command:[/yellow] ")
-        parser.parse_command(inpt)
+    # while True:
+    #     inpt = console.input()
+    #     parser.parse_command(inpt)
+    parser.cmdloop()
         
 
 if __name__ == '__main__':

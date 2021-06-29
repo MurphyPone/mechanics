@@ -1,6 +1,7 @@
 import json
 from character import Character, get_random_character
 from utils import SAVE_FILE
+from lore import NAMES
 
 class Player():
     def __init__(self, dic=None):
@@ -10,14 +11,17 @@ class Player():
             self.fighting = dic["fighting"]
         else: 
             # self.party = [Character()]
-            self.party = [get_random_character(), get_random_character()]
+            # TODO ensure unique names
+            self.party = [get_random_character()]
+            self.party.append(get_random_character(taken_names=[c.name for c in self.party]))
+
             self.coins = 10
             self.fighting = False
         self.save_location = SAVE_FILE
 
     def add_party_member(self):
         if len(self.party) < 4:
-            self.party.append(Character())
+            self.party.append(Character(taken_names=[c.name for c in self.party]))
 
     def buy_attack(self, char_idx, track, level):
         # ensure buying items for a valid char

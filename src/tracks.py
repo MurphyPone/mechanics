@@ -183,32 +183,32 @@ TRACKS = {
             "description": "Conjure a thick aura which stifles enemies"
         },
         {
-            "name": "Bout of Water",
-            "prop_acc": 95, 
-            "target": Target.ALL_E, 
-            "range": (14, 16), 
-            "description": "Douse foes with a blanket of liquid"
-        },
-        {
             "name": "Cone of Flame",
             "prop_acc": 95, 
             "target": Target.ALL_E, 
-            "range": (19, 21), 
+            "range": (14, 16), 
             "description": "Torch all enemies before you"
         },
         {
             "name": "Lightning Strike",
             "prop_acc": 95, 
             "target": Target.ALL_E, 
-            "range": (25, 50), 
+            "range": (19, 21), 
             "description": "Smite foes with a bolt of lightning which chains between them"
         },
         {
             "name": "Ethereal Scythe",
             "prop_acc": 95, 
             "target": Target.ALL_E, 
-            "range": (90, 90), 
+            "range": (25, 50), 
             "description": "Summon a magical blade which cuts all enemies"
+        },
+        {
+            "name": "Solamenta Botafumieros",
+            "prop_acc": 95, 
+            "target": Target.ALL_E, 
+            "range": (90, 90), 
+            "description": "Just throw a lil smoke at your enemies.  Divine smoke, but just a lil bit"
         },
     ], 
     "Physicality": [ # throw
