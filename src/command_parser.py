@@ -26,29 +26,49 @@ class Parser(cmd.Cmd):
         self.console = console
         self.player = player
         self.prompt = " "
+        self.aliases = {
+            "h": self.do_help,
+            "t": self.do_tracks,
+            "p": self.do_party,
+            "i": self.do_inventory,
+            "f": self.do_fight, 
+
+        }
 
     # cmd.Cmd overrides
     def cmdloop(self):
+        """Serves as the `while` loop to constantly prompt for input"""
+
         self.console.print(":gear:[yellow] Enter a command:[/yellow]", end="")
         return cmd.Cmd.cmdloop(self)
     
     def postcmd(self, stop: bool, line: str) -> bool:
+        """gets called after a command has been processed"""
+
         self.console.print(":gear:[yellow] Enter a command:[/yellow]", end="")
         return super().postcmd(stop, line)
     
     def parseline(self, line):
+        """what to do to a line before executing it """
+
         line.lower()
         ret = cmd.Cmd.parseline(self, line)
         return ret
 
     def do_EOF(self, line):
+        """register EOF""" 
         self.safely_quit()
 
     def default(self, line):
-        self.console.print(f"[italic red]Command '{line}' not recognized [/italic red]")
-        return
+        """command not recognized or alias"""
+        cmd, arg, line = self.parseline(line)
+        if cmd in self.aliases:
+            self.aliases[cmd](arg)
+        else:
+            self.console.print(f"[italic red]Command '{line}' not recognized [/italic red]")
 
     def emptyline(self):
+        """empty input""" 
         return 
 
     # def default(self, line):
@@ -56,13 +76,13 @@ class Parser(cmd.Cmd):
     #     return cmd.Cmd.default(self, line)
 
 
-    def clean_input(self, inpt) -> str:
+    def clean_args(self, inpt) -> str:
         """strips excessive whitespace and from a raw input, converts it to lowercase and returns a tuple of the first command and the args"""
-        inpt = inpt.lower().split()
-        cmd = inpt[0]
-        args = inpt[1:]
+        args = inpt.lower().split()
 
-        return cmd, args
+        return args
+
+    ### Commands
 
     def do_help(self, cmd=None, args=None):
         """displays a list of commands"""
@@ -77,13 +97,13 @@ class Parser(cmd.Cmd):
 
         self.console.print(self.player)
 
-    def do_tracks(self, track):
+    def do_tracks(self, args):
         """displays all the tracks, or a specific track""" 
-        # TODO error handle track not in 
-
-        self.console.log(track)
-        if len(track) > 0:
-           self.specific_track(track)
+        
+        args = self.clean_args(args)
+        self.console.log(args)
+        if len(args) > 0:
+           self.specific_track(args[0])
 
         else: 
             self.all_tracks()
@@ -111,6 +131,10 @@ class Parser(cmd.Cmd):
                 for i, atk in enumerate(TRACKS[track]):
                     justified_name = f"{atk['name']}".ljust(max_width)
                     self.console.print(f"\t{i+1} [bold]{justified_name}[/bold]\t{TARGET2STRING[atk['target']]}\t{str(atk['range']).ljust(len('output range'))}\t{atk['description']}")
+                
+                return 
+        self.console.print(f"[italic red]Track '{the_track}' not recognized [/italic red]")
+
 
     def do_inventory(self, args=None):
         """displays the inventory of all characters or a specified character"""
@@ -121,7 +145,9 @@ class Parser(cmd.Cmd):
         else:
             self.console.print(self.player.show_inventory())
 
-    def fight(self):
+    def do_fight(self, args=None):
+        """Handles the fight logic""" 
+
         # move this corny stuff to take place once a fight is begun
         max_width = len("3 Factory")
         self.console.print(f"\t0 [bold]{'Cancel'.ljust(max_width)}[/bold]\tI actually am too scared to do combat rn")
